@@ -11,9 +11,8 @@ function FormAddFrined() {
             <label>Image URL</label>
             <input type="text" />
             
-            <Button>Add Friend</Button>
+            <Button>Add</Button>
         </form>
-        <Button>Close</Button>
     </>
   );
 }
