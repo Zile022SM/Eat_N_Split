@@ -27,24 +27,55 @@ const initialFriends = [
 ];
 
 function App() {
-  
   const [showAddFriend, setShowAddFriend] = useState(false);
+  const [newFriends, setNewFriends] = useState(initialFriends);
+  const [selectFriend, setSelectFriend] = useState(null);
+
+  function handleSelectFriend(friend) {
+    setSelectFriend(current =>current?.id === friend.id ? null : friend);
+    setShowAddFriend(false);
+  }
+
+  function handleAddFriend(newFriend) {
+    setNewFriends((friends) => [...friends, newFriend]);
+
+    //another way to hide form when friend is added
+    //setShowAddFriend(false);
+  }
 
   function handleShowAddFriend() {
     setShowAddFriend((show) => !show);
+    setSelectFriend(null);
+  }
+
+  function handleSplitBill(value){
+    setNewFriends(friends =>friends.map(friend => friend.id === selectFriend.id ? { ...friend, balance: friend.balance + value } : friend));
+
+    setSelectFriend(null);
   }
 
   return (
-    <div className="app">
-      <div className="sidebar">
-        <FriendsList friends={initialFriends} />
-        {showAddFriend && <FormAddFrined />}
+    <div className="grid grid-cols-1 my-4 md:flex justify-between gap-6">
+      <div className="sidebar mb-10">
+        <FriendsList
+          friends={newFriends}
+          onSelectFriend={handleSelectFriend}
+          selectFriend={selectFriend}
+        />
+
+        {showAddFriend && (
+          <FormAddFrined
+            onAddFriend={handleAddFriend}
+            onShowFriends={handleShowAddFriend}
+          />
+        )}
+
         <Button onClick={handleShowAddFriend}>
           {showAddFriend ? "Close" : "Add friend"}
         </Button>
       </div>
 
-      <FormSplitBill />
+      {selectFriend && <FormSplitBill friend={selectFriend} onSplitBill={handleSplitBill} />}
     </div>
   );
 }

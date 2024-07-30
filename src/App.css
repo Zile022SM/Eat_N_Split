@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :root {
-    --color-lightest: #fff4e6;
+    --color-lightest: #F0E68C;
     --color-light: #ffe8cc;
     --color-medium: #ffa94d;
     --color-dark: #ff922b;
@@ -135,11 +135,11 @@
     font-weight: 500;
   }
   
-  label::first-letter {
+  /* label::first-letter {
     display: inline-block;
     margin-right: 4px;
     font-size: 1.8rem;
-  }
+  } */
   
   input,
   select {
